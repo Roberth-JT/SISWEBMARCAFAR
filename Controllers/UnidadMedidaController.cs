@@ -49,6 +49,12 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
+            // ***  LA VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si la identificación no es válida (por ejemplo, si el framework no puede enlazarla)
+                return BadRequest(ModelState);
+            }
             if (id == null)
             {
                 return NotFound();
@@ -101,6 +107,12 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si la identificación no es válida (por ejemplo, si el framework no puede enlazarla)
+                return BadRequest(ModelState);
+            }
             if (id == null)
             {
                 return NotFound();
@@ -122,6 +134,12 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si la identificación no es válida (por ejemplo, si el framework no puede enlazarla)
+                return BadRequest(ModelState);
+            }
             var unidadMedida = await _context.UnidadesMedida.FindAsync(id);
             if (unidadMedida != null)
             {

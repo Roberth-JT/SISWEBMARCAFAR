@@ -76,6 +76,12 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
+            // ***  VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si la identificación no es válida (por ejemplo, si el framework no puede enlazarla)
+                return BadRequest(ModelState);
+            }
             if (id == null) return NotFound();
             var producto = await _productoRepo.GetProductoByIdAsync(id.Value);
             if (producto == null) return NotFound();

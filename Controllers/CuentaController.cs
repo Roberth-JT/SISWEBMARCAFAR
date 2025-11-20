@@ -79,9 +79,7 @@ namespace SISWEBBOTICA.Controllers
         public async Task<IActionResult> Registro(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(returnUrl) && (returnUrl.Contains("Error") || returnUrl.Contains("AccesoDenegado")))
-            { 
-            }
-
+            
             await CrearRolesSiNoExisten();
 
             var adminExistente = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
