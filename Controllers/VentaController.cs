@@ -31,6 +31,13 @@ namespace SISWEBBOTICA.Controllers
         // CORREGIDO: Acepta parámetros de fecha para el filtrado
         public async Task<IActionResult> Index(DateTime? fechaInicio, DateTime? fechaFin)
         {
+            // *** INSERTA ESTA VALIDACIÓN AQUÍ ***
+            if (!ModelState.IsValid)
+            {
+                // Si hay errores de validación, puedes devolver una respuesta HTTP 400 Bad Request
+                // o, en el caso de una vista, devolver la vista original con los errores.
+                return BadRequest(ModelState);
+            }
             ViewData["FechaInicio"] = fechaInicio?.ToString("yyyy-MM-dd");
             ViewData["FechaFin"] = fechaFin?.ToString("yyyy-MM-dd");
 
