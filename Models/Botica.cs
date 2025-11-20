@@ -9,7 +9,7 @@ namespace SISWEBBOTICA.Models
         {
             this.Cotizaciones = new HashSet<Cotizacion>();
         }
-
+        [Required]
         [Key]
         public int IdTienda { get; set; }
 

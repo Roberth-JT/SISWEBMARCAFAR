@@ -12,7 +12,7 @@ namespace SISWEBBOTICA.Models
             // 2. Inicializar la colección aquí dentro
             this.Productos = new HashSet<Producto>();
         }
-
+        [Required]
         [Key]
         public int IdCategoria { get; set; }
 

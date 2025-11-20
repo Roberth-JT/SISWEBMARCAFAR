@@ -15,6 +15,7 @@ namespace SISWEBBOTICA.Models
             this.DetallesCotizacion = new HashSet<DetalleCotizacion>();
         }
 
+        [Required]
         [Key]
         public int IdProducto { get; set; }
 
