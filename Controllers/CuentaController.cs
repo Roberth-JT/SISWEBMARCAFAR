@@ -78,12 +78,8 @@ namespace SISWEBBOTICA.Controllers
         // GET: /Cuenta/Registro
         public async Task<IActionResult> Registro(string returnUrl = null)
         {
-            // --- INICIO DE LA CORRECCIÓN ---
             if (!string.IsNullOrEmpty(returnUrl) && (returnUrl.Contains("Error") || returnUrl.Contains("AccesoDenegado")))
-            {
-                returnUrl = null;
-            }
-            // --- FIN DE LA CORRECCIÓN ---
+          
 
             await CrearRolesSiNoExisten();
 

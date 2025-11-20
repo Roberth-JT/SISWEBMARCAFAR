@@ -125,6 +125,11 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (id == null) return NotFound();
             var producto = await _productoRepo.GetProductoConVentasByIdAsync(id.Value);
             if (producto == null) return NotFound();
@@ -142,6 +147,13 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // **VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si la validación falla aquí, generalmente se devuelve la misma vista o un error.
+                // Usaremos BadRequest por simplicidad, asumiendo que el ID es el único parámetro.
+                return BadRequest(ModelState);
+            }
             var producto = await _productoRepo.GetProductoConVentasByIdAsync(id);
             if (producto == null) return NotFound();
 
