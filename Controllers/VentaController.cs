@@ -127,7 +127,7 @@ namespace SISWEBBOTICA.Controllers
                     var venta = new Venta
                     {
                         IdUsuario = usuarioActual.Id,
-                        IdCliente = model.IdCliente ?? clienteDefault.IdCliente,
+                        IdCliente = model.IdCliente ?? clienteDefault?.IdCliente ??0,
                         IdMoneda = monedaDefault.IdMoneda,
                         NumeroComprobante = await GenerarSiguienteCorrelativo(),
                         TotalPagar = model.Total,
@@ -187,6 +187,13 @@ namespace SISWEBBOTICA.Controllers
         // GET: /Venta/Boleta/5
         public async Task<IActionResult> Boleta(int id)
         {
+
+            if (!ModelState.IsValid)
+            {
+                // Esto cubre cualquier posible error de binding del 'id'
+                // Por ejemplo, si el framework no puede convertirlo.
+                return BadRequest(ModelState);
+            }
             var venta = await _context.Ventas.Include(v => v.Cliente).Include(v => v.Usuario).FirstOrDefaultAsync(v => v.IdVenta == id);
             if (venta == null) return NotFound();
 
@@ -219,6 +226,13 @@ namespace SISWEBBOTICA.Controllers
         // --- NUEVO MÉTODO PARA EXPORTAR A EXCEL ---
         public async Task<IActionResult> ExportarVentas(DateTime? fechaInicio, DateTime? fechaFin)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si hay errores de binding o validación en los parámetros
+                // se devuelve un error de solicitud incorrecta.
+                return BadRequest(ModelState);
+            }
             var ventasQuery = _context.Ventas.Include(v => v.Cliente).Include(v => v.Usuario).AsQueryable();
 
             if (fechaInicio.HasValue) { ventasQuery = ventasQuery.Where(v => v.FechaVenta.Date >= fechaInicio.Value.Date); }
