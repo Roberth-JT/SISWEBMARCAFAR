@@ -34,8 +34,8 @@ jobs:
 
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ c800488ef90cf90e9c4fd94634f2b9fc169534bc }}
         run: |
-          dotnet-sonarscanner begin /k:"SISWEBMARCAFAR" /o:"Roberth-JT" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet-sonarscanner begin /k:"SISWEBMARCAFAR" /o:"Roberth-JT" /d:sonar.token="${{c800488ef90cf90e9c4fd94634f2b9fc169534bc }}"
           dotnet build
-          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet-sonarscanner end /d:sonar.token="${{ c800488ef90cf90e9c4fd94634f2b9fc169534bc }}"
