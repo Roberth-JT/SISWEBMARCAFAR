@@ -108,6 +108,11 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (id == null)
             {
                 return NotFound();
@@ -129,6 +134,12 @@ namespace SISWEBBOTICA.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // ***  VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                // Si falla la validación del ID (por ejemplo, si no se pudo enlazar)
+                return BadRequest(ModelState);
+            }
             var categoria = await _context.Categorias.FindAsync(id);
             if (categoria != null)
             {
