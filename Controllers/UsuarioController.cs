@@ -74,6 +74,7 @@ namespace SISWEBBOTICA.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
             ViewBag.Roles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name", model.Rol);
             return View(model);
         }
@@ -83,6 +84,11 @@ namespace SISWEBBOTICA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ToggleStatus(int id)
         {
+            // *** VALIDACIÓN ***
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var usuario = await _userManager.FindByIdAsync(id.ToString());
             if (usuario == null)
             {
@@ -105,10 +111,4 @@ namespace SISWEBBOTICA.Controllers
         }
     }
 
-    // El ViewModel se puede mantener aquí o moverlo a la carpeta ViewModels si prefieres
-    //public class UsuarioVM
-    //{
-    //    public Usuario Usuario { get; set; }
-    //    public string Rol { get; set; }
-    //}
 }
