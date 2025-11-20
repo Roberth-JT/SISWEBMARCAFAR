@@ -87,13 +87,13 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDBContext>();
         await context.Database.MigrateAsync();
 
-        if (!context.Clientes.Any(c => c.Nombre == "PÚBLICO GENERAL"))
+        if (!await context.Clientes.AnyAsync(c => c.Nombre == "PÚBLICO GENERAL"))
         {
             context.Clientes.Add(new Cliente { Nombre = "PÚBLICO GENERAL", RucDni = "00000000" });
             await context.SaveChangesAsync();
         }
 
-        if (!context.MetodosPago.Any())
+        if (!await context.MetodosPago.AnyAsync())
         {
             context.MetodosPago.AddRange(
                 new MetodoPago { Nombre = "Efectivo", RequiereReferencia = false },

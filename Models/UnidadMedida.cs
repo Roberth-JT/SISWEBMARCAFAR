@@ -10,6 +10,7 @@ namespace SISWEBBOTICA.Models
             this.Productos = new HashSet<Producto>();
         }
 
+        [Required]
         [Key]
         public int IdUnidadMedida { get; set; }
 
